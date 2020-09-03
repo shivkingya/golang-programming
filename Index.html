@@ -1,0 +1,30 @@
+<html>
+  <head>
+ <title>Index</title>
+</head>
+<body>
+    <h2>Added Coins </h2>
+    <table border="1">
+      <thead>
+      <tr>
+        <td>Symbol</td>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Creation Date time</td>
+        <td>Delete</td>
+      </tr>
+       </thead>
+       <tbody>
+         {{range .}}
+    <tr>
+        <td>{{.Symbol}}</td>
+        <td>{{.Id}}</td>
+        <td> {{.Name}} </td>
+        <td>{{.Created}} </td> 
+        <td><a href="/delete?id={{ .Id }}">Delete</a><td>
+      </tr>
+      {{end}}
+       </tbody>
+    </table>
+  </body>
+</html>

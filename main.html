@@ -1,0 +1,21 @@
+<html>
+<header>
+ <title>This is {{.Title}}</title>
+ <script src='jquery.js' type='text/javascript'></script> 
+ <script type='text/javascript'>
+  $(document).ready(function(){
+   $( "#index" ).load( "http://localhost:3000/getSavedCoin/" );
+  });
+ </script>
+</header>    
+<body>  
+{{template "navigation" .}}
+ <h3>welcome to main page</h3>
+ <input type="button" value="Search Coin" onclick="location.href = 'http://localhost:3000/searchCoin/'">
+ <input type="button" value="Add Coin"onclick="location.href = 'http://localhost:3000/addCoin/'">
+ <input type="button" value="Index Page"onclick="location.href = 'http://localhost:3000/getSavedCoin/'">
+ <div class="index">
+
+   </div>
+  </body>
+</html>
