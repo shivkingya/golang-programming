@@ -1,17 +1,13 @@
-<html>
-  <head>
- <title>Index</title>
-</head>
-<body>
-    <h2>Added Coins </h2>
+
+    <h2>Index</h2>
     <table border="1">
       <thead>
       <tr>
         <td>Symbol</td>
         <td>Id</td>
-        <td>Name</td>
+        <td>Price</td>
         <td>Creation Date time</td>
-        <td>Delete</td>
+        <td>Price_Current</td>
       </tr>
        </thead>
        <tbody>
@@ -19,12 +15,10 @@
     <tr>
         <td>{{.Symbol}}</td>
         <td>{{.Id}}</td>
-        <td> {{.Name}} </td>
-        <td>{{.Created}} </td> 
-        <td><a href="/delete?id={{ .Id }}">Delete</a><td>
+        <td> {{.Price}} </td>
+        <td>{{.Created}}</td>
+        <td>{{.Price_current}}</td> 
       </tr>
       {{end}}
        </tbody>
     </table>
-  </body>
-</html>

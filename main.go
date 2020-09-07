@@ -2,18 +2,20 @@ package main
 
 import (
 	"net/http"
-	"os"
+	_"os"
 	"fmt"
 	"html/template"
-	//"github.com/path/to/timestamp"
+	"github.com/gorilla/mux"
 	_"github.com/golang/protobuf/ptypes/timestamp"
 )
 
 type Coin struct {
 	Symbol string
 	Id string
-	Name string
+//Name string
+    Price string
 	Created  string
+	Price_current string
   }
 
   var templates=template.Must(template.ParseFiles("searchCoin.html","addCoin.html","Index.html"))
@@ -35,7 +37,7 @@ func addCoinHandler(w http.ResponseWriter, r *http.Request) {
 func getSavedCoinHandler(w http.ResponseWriter, r *http.Request) {
 
 	db := dbConn()
-    selDB, err := db.Query("SELECT * FROM  dashboard_coin")
+    selDB, err := db.Query("SELECT * FROM  prices")
     if err != nil {
         panic(err.Error())
     }
@@ -43,16 +45,17 @@ func getSavedCoinHandler(w http.ResponseWriter, r *http.Request) {
 	res := []Coin{}
 	//var res[] Coin
     for selDB.Next() {
-		var name, symbol,id string
-		var created string
-        err = selDB.Scan(&symbol, &id, &name, &created)
+		var price, symbol,id string
+		var created,price_current string
+        err = selDB.Scan(&symbol, &id, &price, &created, &price_current)
         if err != nil {
             panic(err.Error())
 		}
 		coin.Symbol = symbol
         coin.Id = id
-        coin.Name = name
-        coin.Created = created
+        coin.Price = price
+		coin.Created = created
+		coin.Price_current = price_current
 		res = append(res, coin)
 	}
 	fmt.Println(res)
@@ -66,14 +69,14 @@ func getSavedCoinHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "3000"
-	}
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", buildPage)
-	mux.HandleFunc("/addCoin/",addCoinHandler)
-	mux.HandleFunc("/searchCoin/",searchCoinHandler)
-	mux.HandleFunc("/getSavedCoin/",getSavedCoinHandler)
-	http.ListenAndServe(":"+port, mux)
+	//port := os.Getenv("PORT")
+	//if port == "" {
+	//	port = "3000"
+	//}
+	router := mux.NewRouter()
+	router.HandleFunc("/", buildPage)
+	router.HandleFunc("/addCoin/",addCoinHandler)
+	router.HandleFunc("/searchCoin/",searchCoinHandler)
+	router.HandleFunc("/getSavedCoin/",getSavedCoinHandler)
+	http.ListenAndServe(":8081", router)
 }
