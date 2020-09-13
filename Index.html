@@ -3,21 +3,17 @@
     <table border="1">
       <thead>
       <tr>
-        <td>Symbol</td>
         <td>Id</td>
         <td>Price</td>
         <td>Creation Date time</td>
-        <td>Price_Current</td>
       </tr>
        </thead>
        <tbody>
          {{range .}}
     <tr>
-        <td>{{.Symbol}}</td>
         <td>{{.Id}}</td>
-        <td> {{.Price}} </td>
-        <td>{{.Created}}</td>
-        <td>{{.Price_current}}</td> 
+        <td> {{.Price_current}} </td>
+        <td>{{.Created}}</td> 
       </tr>
       {{end}}
        </tbody>
