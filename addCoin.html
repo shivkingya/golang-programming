@@ -1,2 +1,64 @@
-This is {{.Title}}
-<h1>Add Coin</h1>
+<html>
+<header>
+ <title>This is {{.Title}}</title>
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ <script>
+    function myFunction(a) {
+      alert("Press a button!",a);
+    }
+    </script>
+ <style>
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+  width: 70%;
+}
+
+th {
+  height: 50px;
+}
+td{
+width:8%;
+}
+ </style>
+ <script type="text/JavaScript">
+
+  function funtionToBeCalled(){
+ 
+  var container = document.getElementById('CoinList');
+  $.ajax({
+                type: 'GET',
+                url: 'https://api.coingecko.com/api/v3/coins/list',
+                data: {},
+                dataType: 'json',
+                success: function(response)  {
+        var trHTML = '';
+        $.each(response, function (i, item) {
+            trHTML += '<tr id='+item.id+'><td>' + item.id + '</td><td>' + item.symbol + '</td><td>' + item.name + '</td><td><button onclick="myFunction(this.id)">Add Coin</button></td></tr>';
+        });
+        $('#records_table').append(trHTML);
+    },
+                error: function() { alert('something bad happened'); }
+                });
+  }             
+  window.onload=funtionToBeCalled;
+  </script>
+ </header>
+<body>
+ <h1>Add Coin</h1>
+ <div id="CoinList">
+    <table id="records_table" border='1' >
+        <tr>
+            <th>Id</th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Add Coins</th>
+        </tr>
+    </table>
+ </div>
+</body>
+</html>
+
